@@ -23,7 +23,7 @@ function handleMain(answers){
         handleManager.ManagerMenu(answers);
     }
     else {exit}
-}
+} 
 
 // Use writeFileSync method to use promises instead of a callback function
 

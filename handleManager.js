@@ -1,3 +1,5 @@
+const r2f = require('./writeToFile');
+
 const Employee = require('./handleEmployee');
 const createCard = require('./createCard');
 const inquirer = require('inquirer');
@@ -5,17 +7,19 @@ const { title, exit } = require('process');
 
 var card='';
 
-function handleManager(answers){
+function handleManager(filename,answers){
     if( answers.Continue === 'Continue'){
-        answers.position = 'Manager';
+        //answers.position = 'Manager';
         card += createCard.generateCard(answers);
         console.log(card);
-        Employee.EmployeeMenue(answers,card);
+        card += Employee.EmployeeMenue(answers,card,filename);
         return card;
     }
-    else {exit}
+    else {
+        return card;
+    }
 }
-
+ 
 const ManagerPrompt = () => {
   return inquirer.prompt([
     {
@@ -47,10 +51,10 @@ const ManagerPrompt = () => {
     }
   ]);
 };
-function ManagerMenu(answers){
+function ManagerMenu(manager_answers){
         console.clear();
         ManagerPrompt()
-            .then((answers) => handleManager(answers))
+            .then((answers) => handleManager(manager_answers.fileName,answers))
             .catch((err) => console.error(err));
 }
 module.exports = {

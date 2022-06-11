@@ -47,7 +47,10 @@ h1 {
 }
 
 h2 {
-  font-size: 3.5rem;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+  Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+font-size: 2.5rem;
+margin-bottom: 1rem;
 }
 
 h3 {
@@ -67,7 +70,13 @@ h6 {
 }
 
 p {
+  border-bottom: 1px solid rgb(170, 170, 170);
+  padding: 1%;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+    Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  font-size: 1.5rem;
   margin-bottom: 1rem;
+
 }
 
 code {
@@ -134,7 +143,7 @@ footer {
   outline-offset: -2px;
   transition: all 0.5s ease-in-out;
   box-shadow: 0 0 10px black;
-
+ background-color: #ffffff;
 }
 
 .code-card .card-header {
@@ -156,7 +165,8 @@ footer {
 }
 
 /* each card's code block grows to the height of the largest code block on the page, making each card even in height */
-.code-card .code-block {
+.card-body {
+  background-color: #ffffff;
   flex-grow: 1;
 }
 

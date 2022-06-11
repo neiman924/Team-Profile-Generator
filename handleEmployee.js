@@ -1,17 +1,24 @@
+const r2f = require('./writeToFile');
 const createCard = require('./createCard');
 const inquirer = require('inquirer');
 const { title, exit } = require('process');
 
-function handleEmployee(answers,card){
-    if( answers.Continue = 'Continue'){
-        card+=createCard.generateCard(answers);
-        //newUser(card);
-        EmployeeMenue(answers,card);
-        console.log(card);
-        return card;
-    }
+var newCard,newFileName;
+
+function handleEmployee(filename,answers){
+    //console.log(filename);
+    newCard+=createCard.generateCard(answers);
+    if( answers.Continue === 'Continue'){
+        console.log('line 11',newCard);
+        EmployeePrompt()
+            .then((canswers) => handleEmployee(filename,canswers))
+            .catch((err) => console.error(err));
+        ;
+    } 
     else {
-        return card;
+        console.log('this',newCard);
+        r2f.write2file(filename,newCard);
+        return newCard;
     }
 }
 
@@ -21,7 +28,13 @@ const EmployeePrompt = () => {
         //team manager’s name, employee ID, email address, and office number
         type: 'input',
         name: 'name',
-        message: 'Welcome to Team Chart Generator app, to start the process\n Please choose a name for your Team : ',
+        message: 'Welcome to the employee menue,to start the process\n Please enter your employee name : ',
+    },
+    {
+        type: 'rawlist',
+        name: 'position',
+        message: 'Please enter the position of your employee : ',
+        choices: ['Engineer','Intern']
     },
     {
         type: 'input',
@@ -35,25 +48,26 @@ const EmployeePrompt = () => {
     },
     {
         type: 'input',
-        name: 'office_number',
-        message: 'Enter office number : ',
+        name: 'github',
+        message: 'Please enter his/her GitHub account : ',
     },
     {
         type: 'rawlist',
         name: 'Continue',
-        message: 'Do you want to enter the rest of your group information? , please choose one of the information below : ',
-        choices: ['Continue','Exit(it is not going to create your chart)']
+        message: 'Do you want to enter another employee? , \nPlease choose one of the information below : ',
+        choices: ['Continue','Exit(it is going to create your chart!)']
     }
   ]);
 };
-function EmployeeMenue(answers,card){
-        // console.clear();
+function EmployeeMenue(m_answers,card,filename){
+        console.clear();
+        newCard = card;
         EmployeePrompt()
-            .then((answers) => handleEmployee(answers,card))
+            .then((answers) => handleEmployee(filename,answers))
             // .then(exit)
             .catch((err) => console.error(err));
-
 }
 module.exports = {
+    handleEmployee,
     EmployeeMenue
   }
