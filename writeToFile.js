@@ -3,6 +3,7 @@ const { title } = require('process');
 
 function write2file(fileName, card) {
     console.log(fileName);
+    if (!fileName) fileName='newteam';
     var f = fileName.toUpperCase();
     //fileName.toUpperCase()+'
     fs.writeFile(f+'.html', generateHtml(f,card), function (err) {
